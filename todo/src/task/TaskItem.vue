@@ -1,16 +1,15 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   name: string
-  completed: (next?: boolean) => boolean
+  completed: boolean
+  toggle: () => void
 }>()
-
-console.log(props.completed, props.completed())
 </script>
 
 <template>
-  <div class="task-item">
+  <div class="task-item" :data-completed="completed ? true : false">
     <span>{{ name }}</span>
-    <input type="checkbox" class="task-item-check" :checked="completed()" @click="completed(!completed())" />
+    <input type="checkbox" class="task-item-check" :checked="completed" @click="toggle" />
   </div>
 </template>
 
@@ -19,6 +18,11 @@ console.log(props.completed, props.completed())
   display: flex;
   flex: 1 0 row;
   gap: 8px;
+  justify-content: space-between;
+}
+
+.task-item[data-completed="true"] {
+  text-decoration: line-through;
 }
 
 .task-item-check {

@@ -1,9 +1,24 @@
 <script setup lang="ts">
+import TaskItem from './TaskItem.vue';
+import type { TodoTask } from './task';
+
+defineProps<{
+    tasks: TodoTask[]
+}>()
 </script>
 
 <template>
     <div class="task-list">
-        <slot></slot>
+        <template
+            v-for="task in tasks"
+            :key="task.id"
+        >
+            <TaskItem
+                :name="task.name"
+                :completed="task.completed"
+                :toggle="task.toggle"
+            />
+        </template>
     </div>
 </template>
 

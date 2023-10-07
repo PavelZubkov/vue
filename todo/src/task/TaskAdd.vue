@@ -8,6 +8,8 @@
     const disabled = computed(() => name.value.length === 0)
 
     function add() {
+        if (!name.value.length) return
+
         props.taskAdd(name.value)
         name.value = ''
     }
@@ -15,7 +17,7 @@
 </script>
 
 <template>
-    <div class="task-add">
+    <div class="task-add" @keydown.enter="add">
         <input type="text" v-model="name" />
         <button :disabled="disabled" @click="add">Add</button>
     </div>

@@ -1,8 +1,18 @@
-import './app.css'
+import { TodoTask } from "@/task/task";
+import { reactive } from "vue";
 
-import { createApp } from 'vue'
-import App from './App.vue'
+export class TodoApp {
+    tasks: TodoTask[] = []
+    idCounter = 0
 
-const app = createApp(App)
+    taskAdd(name: string) {
+        const obj = reactive(new TodoTask)
+        obj.id = this.idCounter++
+        obj.name = name
+        this.tasks.push(obj)
+    }
 
-app.mount('#app')
+    tasksFilter(filter: (task: TodoTask) => boolean) {
+        return this.tasks.filter(filter)
+    }
+}
