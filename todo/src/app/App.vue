@@ -14,8 +14,9 @@ function taskAdd(name: string) {
 
 function taskCompleted(name: string, next?: boolean) {
   const task = taskList.value.find(obj => obj.name === name)
+  if (!task) throw new Error('Task not found')
 
-  if (next == !undefined) task.completed = next
+  if (next !== undefined) task.completed = next
 
   return next ?? task.completed ?? false
 }
